@@ -1,0 +1,86 @@
+.main {
+    margin: 2rem;
+    width: 20rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+}
+
+.user {
+    padding: 0.25rem;
+}
+
+.user .id {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.2rem;
+}
+
+.user .name {
+    padding: 0.2rem;
+    font-style: italic;
+}
+
+.user .address {
+    padding: 0.2rem;
+    color: rgb(107, 131, 123);
+}
+
+.user .items {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    padding: 0.2rem;
+}
+
+
+.selected-item {
+    margin: 0.25rem;
+    background-color: rgb(184, 149, 218);
+    border-radius: 0.5rem;
+    padding: 0rem 0.5rem;
+    width: max-content;
+    color: white;
+}
+
+.suggestions {
+    background-color: white;
+    height: 20rem;
+    overflow-y: scroll;
+    box-shadow: inset 0 0 5px rgb(109, 105, 105);
+    /* border: 1px solid black; */
+}
+
+.suggestions li {
+    padding: 0.25rem
+}
+
+li.focused {
+    background-color: khaki;
+    cursor: pointer;
+}
+
+.suggestions::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 0.5rem;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background-color: rgb(245, 230, 230);
+}
+
+.no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.highlight {
+    color: blue;
+}
