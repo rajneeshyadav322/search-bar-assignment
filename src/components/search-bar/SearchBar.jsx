@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { fetchUsers } from '../../api'
 import './search.css'
 import useSearch from '../../hooks/useSearch'
+import Suggestions from '../suggestions/Suggestions'
 
 const SearchBar = () => {
 
@@ -20,47 +21,16 @@ const SearchBar = () => {
       />
 
       {userInput.length > 0 &&
-        <ul className="suggestions">
-          {
-            suggestions.length > 0 ? suggestions?.map((suggestion, ind) => (
-              <li
-                key={suggestion.id}
-                ref={refs[suggestion.id]}
-                className={suggestionFocus === ind ? "focused" : ""}
-                onMouseOver={() => handleSuggestionFocus(ind)}
-                onMouseLeave={() => handleSuggestionFocus(null)}
-              >
-                <div className='user'>
-                  <div className='id'>
-                    <CardItem content={suggestion.id} />
-                  </div>
-                  <div className='name'>
-                    <CardItem content={suggestion.name} />
-                  </div>
-                  {
-                    userInput && suggestion.items.some(item => item.includes(userInput)) &&
-                    <div className='items'>
-                      &#x2022; <span className='highlight'>"{`${userInput}`}"</span> found in items.
-                    </div>
-                  }
-                  <div className='address'>
-                    <CardItem content={suggestion.address} />
-                  </div>
-                </div>
-              </li>)
-            )
-              :
-              <div className='no-data'>No User Found!</div>
-          }
-        </ul>
+        <Suggestions
+          refs={refs}
+          suggestions={suggestions}
+          suggestionFocus={suggestionFocus}
+          handleSuggestionFocus={handleSuggestionFocus}
+          userInput={userInput}
+        />
       }
     </div>
   )
-}
-
-
-const CardItem = ({ content }) => {
-  return <div dangerouslySetInnerHTML={{ __html: `${content}` }}></div>
 }
 
 export default SearchBar

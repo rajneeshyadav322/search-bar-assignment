@@ -10,38 +10,37 @@ const useSearch = (fetchSuggestions) => {
     useEffect(() => {
         (async () => {
             const { data, error } = await fetchSuggestions()
-            setUsers(data)
+            if (data) {
+                setUsers(data)
+            }
         })()
     }, [])
 
 
     const suggestions = useMemo(() => {
-        if (userInput.length === 0) {
-            return users;
-        }
-        else {
-            const res = users.filter(obj => {
-                return Object.values(obj).some(val => {
-                    if (Array.isArray(val)) {
-                        return val.some(item => item.includes(userInput))
-                    }
-                    else {
-                        return val.includes(userInput)
-                    }
-                })
-            }).map((item) => {
-                let obj = { ...item };
 
-                for (let key in obj) {
-                    if (!Array.isArray(obj[key])) {
-                        const newVal = obj[key].replace(new RegExp(userInput, "gi"), match => `<span class="highlight">${match}</span>`)
-                        obj[key] = newVal;
-                    }
+        const res = users.filter(obj => {
+            return Object.values(obj).some(val => {
+                if (Array.isArray(val)) {
+                    return val.some(item => item.includes(userInput))
                 }
-                return obj;
+                else {
+                    return val.includes(userInput)
+                }
             })
-            return res;
-        }
+        }).map((item) => {
+            let obj = { ...item };
+
+            for (let key in obj) {
+                if (!Array.isArray(obj[key])) {
+                    const newVal = obj[key].replace(new RegExp(userInput, "gi"), match => `<span class="highlight">${match}</span>`)
+                    obj[key] = newVal;
+                }
+            }
+            return obj;
+        })
+
+        return res;
     }, [users, userInput])
 
 
@@ -51,10 +50,6 @@ const useSearch = (fetchSuggestions) => {
             return acc;
         }, {})
     }, [users, userInput])
-
-    useEffect(() => {
-
-    }, [userInput])
 
 
     useEffect(() => {
